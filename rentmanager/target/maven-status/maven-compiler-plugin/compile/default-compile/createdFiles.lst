@@ -1,0 +1,10 @@
+com\epf\rentmanager\servlet\VehicleServlet.class
+com\epf\rentmanager\servlet\InfoUserServlet.class
+com\epf\rentmanager\model\Reservation.class
+com\epf\rentmanager\main\main.class
+com\epf\rentmanager\exception\DaoException.class
+com\epf\rentmanager\exception\ServiceException.class
+com\epf\rentmanager\servlet\ReservationServlet.class
+com\epf\rentmanager\servlet\UserServlet.class
+com\epf\rentmanager\model\Vehicle.class
+com\epf\rentmanager\model\Client.class
