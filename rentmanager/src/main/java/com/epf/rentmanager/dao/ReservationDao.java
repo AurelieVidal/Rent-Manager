@@ -15,18 +15,27 @@ import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Reservation;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.persistence.ConnectionManager;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class ReservationDao {
 
 	private static ReservationDao instance = null;
+
+	private ClientDao clientDao;
+	private VehicleDao vehicleDao;
 	public ReservationDao() {}
-	public static ReservationDao getInstance() {
-		if(instance == null) {
-			instance = new ReservationDao();
-		}
-		return instance;
+	//public static ReservationDao getInstance() {
+	//	if(instance == null) {
+	//		instance = new ReservationDao();
+	//	}
+	//	return instance;
+	//}
+
+	public ReservationDao(ClientDao clientDao, VehicleDao vehicleDao){
+		this.clientDao = clientDao;
+		this.vehicleDao = vehicleDao;
 	}
-	
 	private static final String CREATE_RESERVATION_QUERY = "INSERT INTO Reservation(client_id, vehicle_id, debut, fin) VALUES(?, ?, ?, ?);";
 	private static final String DELETE_RESERVATION_QUERY = "DELETE FROM Reservation WHERE id=?;";
 	private static final String FIND_RESERVATIONS_BY_CLIENT_QUERY = "SELECT id, vehicle_id, debut, fin FROM Reservation WHERE client_id=?;";
@@ -79,9 +88,9 @@ public class ReservationDao {
 			while (rs.next()){
 				int id = rs.getInt("id");
 				int id_client = rs.getInt("client_id");
-				Client client = ClientDao.getInstance().findById(id_client);
+				Client client = this.clientDao.findById(id_client);
 				int id_vehicle = rs.getInt("vehicle_id");
-				Vehicle vehicle = VehicleDao.getInstance().findById(id_vehicle);
+				Vehicle vehicle = this.vehicleDao.findById(id_vehicle);
 				LocalDate debut = rs.getDate("debut").toLocalDate();
 				LocalDate fin = rs.getDate("fin").toLocalDate();
 				reservations.add(new Reservation(id, client,vehicle,debut,fin));
@@ -106,9 +115,9 @@ public class ReservationDao {
 			while (rs.next()){
 				int id = rs.getInt("id");
 				int id_client = rs.getInt("client_id");
-				Client client = ClientDao.getInstance().findById(id_client);
+				Client client = this.clientDao.findById(id_client);
 				int id_vehicle = rs.getInt("vehicle_id");
-				Vehicle vehicle = VehicleDao.getInstance().findById(id_vehicle);
+				Vehicle vehicle = this.vehicleDao.findById(id_vehicle);
 				LocalDate debut = rs.getDate("debut").toLocalDate();
 				LocalDate fin = rs.getDate("fin").toLocalDate();
 				reservations.add(new Reservation(id, client,vehicle,debut,fin));
@@ -132,9 +141,9 @@ public class ReservationDao {
 			while (rs.next()){
 				int id = rs.getInt("id");
 				int id_client = rs.getInt("client_id");
-				Client client = ClientDao.getInstance().findById(id_client);
+				Client client = this.clientDao.findById(id_client);
 				int id_vehicle = rs.getInt("vehicle_id");
-				Vehicle vehicle = VehicleDao.getInstance().findById(id_vehicle);
+				Vehicle vehicle = this.vehicleDao.findById(id_vehicle);
 				LocalDate debut = rs.getDate("debut").toLocalDate();
 				LocalDate fin = rs.getDate("fin").toLocalDate();
 				reservations.add(new Reservation(id, client,vehicle,debut,fin));
@@ -181,9 +190,9 @@ public class ReservationDao {
 			while (rs.next()) {
 
 				int id_client = rs.getInt("client_id");
-				Client client = ClientDao.getInstance().findById(id_client);
+				Client client = this.clientDao.findById(id_client);
 				int id_vehicle = rs.getInt("vehicle_id");
-				Vehicle vehicle = VehicleDao.getInstance().findById(id_vehicle);
+				Vehicle vehicle = this.vehicleDao.findById(id_vehicle);
 				LocalDate debut = rs.getDate("debut").toLocalDate();
 				LocalDate fin = rs.getDate("fin").toLocalDate();
 				return new Reservation(id, client, vehicle, debut, fin);
