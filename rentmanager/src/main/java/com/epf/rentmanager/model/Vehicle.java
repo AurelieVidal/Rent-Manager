@@ -1,5 +1,8 @@
 package com.epf.rentmanager.model;
 
+import com.epf.rentmanager.exception.InvalidClientException;
+import com.epf.rentmanager.exception.InvalidVehicleException;
+
 import java.util.Objects;
 
 public class Vehicle {
@@ -11,6 +14,12 @@ public class Vehicle {
 
     public Vehicle(long id, String constructeur, String modele, int nb_places) {
         this.id = id;
+        this.constructeur = constructeur;
+        this.modele = modele;
+        this.nb_places = nb_places;
+    }
+
+    public Vehicle(String constructeur, String modele, int nb_places) {
         this.constructeur = constructeur;
         this.modele = modele;
         this.nb_places = nb_places;
@@ -72,6 +81,27 @@ public class Vehicle {
                 ", modele='" + modele + '\'' +
                 ", nb_places=" + nb_places +
                 '}';
+    }
+
+
+
+    public static boolean checkNbPlaces (Vehicle vehicle) {
+        if (vehicle.getNb_places()<2 ||vehicle.getNb_places()>9){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+
+
+
+    public static void ValidVehicle (Vehicle vehicle) throws InvalidVehicleException {
+        if (!checkNbPlaces(vehicle)) {
+            throw new InvalidVehicleException();
+        }
+
     }
 }
 

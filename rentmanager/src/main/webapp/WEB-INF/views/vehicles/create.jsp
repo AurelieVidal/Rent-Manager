@@ -74,6 +74,7 @@
                             </div>
                             <!-- /.box-footer -->
                         </form>
+                        <p style = "color: red; text-align: end; padding-right: 10px;"><strong>${message}</strong></p>
                     </div>
                     <!-- /.box -->
                 </div>

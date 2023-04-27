@@ -52,7 +52,7 @@
                                     <label for="date" class="col-sm-2 control-label">Date de naissance</label>
 
                                     <div class="col-sm-10">
-                                        <input type="date" class="form-control" id="naissance" name="naissance">
+                                        <input type="date" class="form-control" id="naissance" name="naissance" >
                                     </div>
                                 </div>
                             </div>
@@ -62,6 +62,7 @@
                             </div>
                             <!-- /.box-footer -->
                         </form>
+                        <p style = "color: red; text-align: end; padding-right: 10px;"><strong>${message}</strong></p>
                     </div>
                     <!-- /.box -->
                 </div>

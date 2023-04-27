@@ -1,5 +1,11 @@
 package com.epf.rentmanager.model;
 
+import com.epf.rentmanager.config.AppConfiguration;
+import com.epf.rentmanager.exception.InvalidClientException;
+import com.epf.rentmanager.service.ClientService;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -9,6 +15,7 @@ public class Client {
     private String prenom;
     private String email;
     private LocalDate naissance;
+
 
 
     public long getId() {
@@ -91,6 +98,38 @@ public class Client {
                 ", naissance=" + naissance +
                 '}';
     }
+
+    public static boolean isLegal (Client client) {
+        if (client.naissance.getYear()< LocalDate.now().getYear()-18){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public static boolean checkNames (Client client) {
+        if (client.getNom().length()<3 || client.getPrenom().length()<3){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+
+
+
+    public static void ValidClient (Client client) throws InvalidClientException {
+        if (!isLegal(client)) {
+            throw new InvalidClientException();
+        }
+        if (!checkNames(client)){
+            throw new InvalidClientException();
+        }
+    }
+
+
 
 
 }
